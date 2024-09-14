@@ -1,10 +1,8 @@
-(defn pascal
-  ([n] (pascal n []))
+(defn pascal-triangle
+  ([n] (pascal-triangle n [1]))
   ([n acc]
-   (cond
-     (= 0 n) (mapv #(apply str (interpose " " %)) acc)
-     (= 0 (count acc)) (recur (dec n) (conj acc [1]))
-     :else (recur (dec n) (conj acc (into [] cat [[1] (mapv #(apply + %) (partition 2 1 (last acc))) [1]])))
-     )))
+   (when (> n 0)
+     (println (apply str (interpose " " acc)))
+     (recur (dec n) (mapv + (conj acc 0) (rseq (conj acc 0)))))))
 
-(run! println (pascal (read-string (read-line))))
+(pascal-triangle (read-string (read-line)))
